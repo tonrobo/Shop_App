@@ -13,6 +13,7 @@ import {
   Platform,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
+import * as productsActions from "../../store/actions/products";
 
 import {
   MaterialHeaderButton,
@@ -20,7 +21,7 @@ import {
 } from "../../components/UI/HeaderButton";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 
-const EditProductsScreen = ({ navigation, route }) => {
+const EditProductScreen = ({ navigation, route }) => {
   // Create your submit button
   const myHeaderButton =
     Platform.OS === "android" ? MaterialHeaderButton : IosHeaderButton;
@@ -50,7 +51,16 @@ const EditProductsScreen = ({ navigation, route }) => {
 
   // Submit
   const submitHandler = useCallback(() => {
-    console.log("Submitting!");
+    // if we are editing
+    if (editedProduct) {
+      dispatch(
+        productsActions.updateProduct(prodId, title, description, imageUrl)
+      );
+    } else {
+      dispatch(
+        productsActions.createProduct(title, description, imageUrl, +price)
+      );
+    }
   });
 
   // ****************** this is where I left off Wed night. Max is using UseEffect, but I think I need
@@ -130,8 +140,8 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     borderBottomColor: "#ccc",
     borderBottomWidth: 1,
-    backgroundColor: "lightgray",
+    backgroundColor: "pink",
   },
 });
 
-export default EditProductsScreen;
+export default EditProductScreen;

@@ -9,7 +9,7 @@ import {
   IosHeaderButton,
 } from "../components/UI/HeaderButton";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
-import EditProductsScreen from "../screens/user/EditProductsScreen";
+import EditProductScreen from "../screens/user/EditProductScreen";
 
 const Stack = createStackNavigator();
 const HeaderStackScreenOptions = {
@@ -68,7 +68,7 @@ const AdminStack = () => {
       />
       <Stack.Screen
         name="EditProduct"
-        component={EditProductsScreen}
+        component={EditProductScreen}
         options={({ route }) => ({
           headerTitle: route.params ? "Edit Product" : "Add Product",
           headerBackTitle: "Back",
