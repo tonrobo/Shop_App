@@ -61,7 +61,7 @@ const EditProductScreen = ({ navigation, route }) => {
         productsActions.createProduct(title, description, imageUrl, +price)
       );
     }
-  });
+  }, [dispatch, prodId, title, description, imageUrl]);
 
   // ****************** this is where I left off Wed night. Max is using UseEffect, but I think I need
   // to use the same useLayoutEffect with dependencies as I did in the FiltersScreen
