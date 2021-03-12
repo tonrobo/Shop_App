@@ -38,7 +38,8 @@ export default (state = initialState, action) => {
         action.productData.title,
         action.productData.imageUrl,
         action.productData.description,
-        state.userProducts[productIndex].price
+        action.productData.price
+        // state.userProducts[productIndex].price
       );
       //this creates copy
       const updatedUserProducts = [...state.userProducts];

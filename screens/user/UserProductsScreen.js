@@ -1,5 +1,5 @@
 import React from "react";
-import { FlatList, Platform, Button } from "react-native";
+import { FlatList, Platform, Button, Alert } from "react-native";
 import ProductItem from "../../components/shop/ProductItem";
 // How do we select the data to be used in the flatlist? with the useSelector
 import { useSelector, useDispatch } from "react-redux";
@@ -10,6 +10,20 @@ const UserProductsScreen = ({ navigation }) => {
   // Reducer (store, actions)
   const userProducts = useSelector((state) => state.products.userProducts);
   const dispatch = useDispatch();
+
+  // Delete User Prodcur
+  const deleteHandler = (id) => {
+    Alert.alert("Are you sure?", "Do you really want to delete this item?", [
+      { text: "No", style: "default" },
+      {
+        text: "Yes",
+        style: "destructive",
+        onPress: () => {
+          dispatch(productsActions.deleteProduct(id));
+        },
+      },
+    ]);
+  };
 
   // Edit User Products
   const editProductHandler = (id) => {
@@ -40,9 +54,7 @@ const UserProductsScreen = ({ navigation }) => {
           <Button
             color={Colors.primary}
             title="Delete"
-            onPress={() =>
-              dispatch(productsActions.deleteProduct(itemData.item.id))
-            }
+            onPress={deleteHandler.bind(this, itemData.item.id)}
           />
         </ProductItem>
       )}

@@ -1,17 +1,6 @@
-import React, {
-  useState,
-  useLayoutEffect,
-  useCallback,
-  useEffect,
-} from "react";
-import {
-  View,
-  Text,
-  ScrollView,
-  TextInput,
-  StyleSheet,
-  Platform,
-} from "react-native";
+import React, { useState, useLayoutEffect, useCallback } from "react";
+import { View, Text, TextInput, StyleSheet, Platform } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useSelector, useDispatch } from "react-redux";
 import * as productsActions from "../../store/actions/products";
 
@@ -61,9 +50,14 @@ const EditProductScreen = ({ navigation, route }) => {
         productsActions.createProduct(title, description, imageUrl, +price)
       );
     }
-  }, [dispatch, prodId, title, description, imageUrl]);
+    navigation.goBack();
+  }, [dispatch, prodId, title, description, imageUrl, price]);
 
-  // ****************** this is where I left off Wed night. Max is using UseEffect, but I think I need
+  // Lastly we need to automatically slide back to the Product after a new product has been added and/or
+  // add an alert for user reassurance and confirmation. Use the Alert API for deleting, confriming changes, and
+  // new product has been added.
+
+  //  Max is using UseEffect, but I think I need
   // to use the same useLayoutEffect with dependencies as I did in the FiltersScreen
 
   useLayoutEffect(() => {
@@ -83,7 +77,7 @@ const EditProductScreen = ({ navigation, route }) => {
   }, [navigation, submitHandler]);
 
   return (
-    <ScrollView style={styles.form}>
+    <KeyboardAwareScrollView style={styles.form}>
       <View style={styles.formControl}>
         <Text style={styles.label}>Title</Text>
         <TextInput
@@ -100,11 +94,11 @@ const EditProductScreen = ({ navigation, route }) => {
           onChangeText={(text) => setimageUrl(text)}
         />
       </View>
-
       {editedProduct ? null : (
         <View style={styles.formControl}>
           <Text style={styles.label}>Price</Text>
           <TextInput
+            keyboardType="decimal-pad"
             style={styles.input}
             value={price}
             onChangeText={(text) => setPrice(text)}
@@ -114,19 +108,24 @@ const EditProductScreen = ({ navigation, route }) => {
       <View style={styles.formControl}>
         <Text style={styles.label}>Description</Text>
         <TextInput
-          style={styles.input}
+          style={styles.inputMulti}
           value={description}
+          multiline
+          numberOfLines={4}
           onChangeText={(text) => setDescription(text)}
         />
       </View>
-    </ScrollView>
+    </KeyboardAwareScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  // KeyboardAvareScrollView
   form: {
-    margin: 20,
+    flex: 1,
+    padding: 10,
   },
+  // Title & Input Container
   formControl: {
     width: "100%",
     marginBottom: 20,
@@ -140,7 +139,15 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     borderBottomColor: "#ccc",
     borderBottomWidth: 1,
-    backgroundColor: "pink",
+    backgroundColor: "#fff",
+  },
+  inputMulti: {
+    paddingHorizontal: 5,
+    paddingVertical: 10,
+    borderBottomColor: "#ccc",
+    borderBottomWidth: 1,
+    backgroundColor: "#fff",
+    height: 150,
   },
 });
 
