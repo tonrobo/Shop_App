@@ -6,6 +6,7 @@ import CartItem from "../../components/shop/CartItem";
 import * as cartActions from "../../store/actions/cart";
 import * as ordersActions from "../../store/actions/orders";
 import OrdersStack from "../../navigation/OrdersStack";
+import Card from "../../components/UI/Card";
 
 const CartScreen = ({ route, navigation }) => {
   const dispatch = useDispatch();
@@ -29,7 +30,7 @@ const CartScreen = ({ route, navigation }) => {
   });
   return (
     <View style={styles.screen}>
-      <View style={styles.summary}>
+      <Card style={styles.summary}>
         <Text style={styles.summaryText}>
           Total:{" "}
           <Text style={styles.amount}>
@@ -45,7 +46,7 @@ const CartScreen = ({ route, navigation }) => {
             navigation.navigate("OrdersScreen");
           }}
         />
-      </View>
+      </Card>
       <View>
         {/* in the future this will be a flatlist of items */}
         <FlatList
@@ -78,13 +79,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginBottom: 20,
     padding: 10,
-    shadowColor: "black",
-    shadowOpacity: 0.26,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 2,
-    elevation: 5,
-    borderRadius: 10,
-    backgroundColor: "white",
   },
   summaryText: {
     fontFamily: "open-sans-bold",

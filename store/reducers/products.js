@@ -38,7 +38,7 @@ export default (state = initialState, action) => {
         action.productData.title,
         action.productData.imageUrl,
         action.productData.description,
-        action.productData.price
+        state.userProducts[productIndex].price
         // state.userProducts[productIndex].price
       );
       //this creates copy

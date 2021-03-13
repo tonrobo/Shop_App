@@ -9,6 +9,7 @@ import {
   Platform,
 } from "react-native";
 
+import Card from "../UI/Card.js";
 // import DefaultText from "./DefaultText";
 
 // Purpose: Presentation
@@ -20,8 +21,9 @@ const ProductItem = (props) => {
   if (Platform.OS === "android" && Platform.Version >= 21) {
     TouchableCmp = TouchableNativeFeedback;
   }
+
   return (
-    <View style={styles.product}>
+    <Card style={styles.product}>
       <View style={styles.touchable}>
         {/* Since we want these buttons to be used in the Products for Sale and Admin Products onSelect */}
         <TouchableCmp onPress={props.onSelect} useForeground>
@@ -47,18 +49,11 @@ const ProductItem = (props) => {
           </View>
         </TouchableCmp>
       </View>
-    </View>
+    </Card>
   );
 };
 const styles = StyleSheet.create({
   product: {
-    shadowColor: "black",
-    shadowOpacity: 0.26,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 2,
-    elevation: 5,
-    borderRadius: 10,
-    backgroundColor: "white",
     height: 300, //Remember you can use the Dimesions API and make it responsive.
     margin: 20,
   },
